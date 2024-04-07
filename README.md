@@ -14,6 +14,9 @@ The "KNOCK OUT WARNING" mod introduces a new gameplay mechanic to Content Warnin
 - **Client-Sided:** This mod is client-sided, allowing anybody to play with it regardless of whether other players in the lobby have it installed.
 
 - **Self-Inflicted Knockouts:** Watch out for the consequences of hitting your head too hard - even the most skilled players can accidentally knock themselves out!
+
+- **Quieter Surroundings:** Tired of yelling figures ? Make them silent with a simple camera swing! Your microphone is turned off during blackouts.
+
 > [!IMPORTANT] 
 >## How to Use:
 >### Requirements:
