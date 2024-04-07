@@ -14,19 +14,18 @@ The "KNOCK OUT WARNING" mod introduces a new gameplay mechanic to Content Warnin
 - **Client-Sided:** This mod is client-sided, allowing anybody to play with it regardless of whether other players in the lobby have it installed.
 
 - **Self-Inflicted Knockouts:** Watch out for the consequences of hitting your head too hard - even the most skilled players can accidentally knock themselves out!
-
-## How to Use:
-### Requirements:
-- BepInEx : https://github.com/BepInEx/BepInEx
-- BepinExMelonLoader Mono version for x64 architecture: https://github.com/BepInEx/BepInEx.MelonLoader.Loader
-
-### Installation:
-- Install BepInEx. [Instructions on how to install](https://docs.bepinex.dev/articles/user_guide/installation/index.html)
-- Run the game a first time to allow BepInEx to create some files.
-- Close your game.
-- Install BepInEx MelonLoader by unpacking the mod to the root of your "Content Warning" folder.
-- Place 'KnockOutWarning.dll' inside the 'ContentWarning/MLLoader/Mods' folder.
-- Enjoy !
+> [!IMPORTANT] 
+>## How to Use:
+>### Requirements:
+>- BepInEx : https://github.com/BepInEx/BepInEx
+>- BepinExMelonLoader Mono version for x64 architecture: https://github.com/BepInEx/BepInEx.MelonLoader.Loader
+>### Installation:
+>- Install BepInEx. [Instructions on how to install](https://docs.bepinex.dev/articles/user_guide/installation/index.html)
+>- Run the game a first time to allow BepInEx to create some files.
+>- Close your game.
+>- Install BepInEx MelonLoader by unpacking the mod to the root of your "Content Warning" folder.
+>- Place 'KnockOutWarning.dll' inside the 'ContentWarning/MLLoader/Mods' folder.
+>- Enjoy !
 
 ## Compatibility:
 
