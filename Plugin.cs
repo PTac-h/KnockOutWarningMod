@@ -9,7 +9,6 @@ namespace KnockOutWarning
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
     {
-        private string mySteamId = "";
         private GameObject myPlayerObject = null;
         private GameObject myVoiceObject = null;
         private GameObject myPostPlayer = null;
@@ -131,14 +130,12 @@ namespace KnockOutWarning
     public class KnockOutHandler : MonoBehaviour
     {
 
-        private string mySteamId;
         private Player myPlayer;
         private PlayerRagdoll myPlayerRagdoll;
         private GameObject myVoiceObject;
         private GameObject myPostPlayer;
         private Volume myBlur;
 
-        public string MySteamId { get => mySteamId; set => mySteamId = value; }
         public Player MyPlayer { get => myPlayer; set => myPlayer = value; }
         public GameObject MyVoiceObject { get => myVoiceObject; set => myVoiceObject = value; }
         public Volume MyBlur { get => myBlur; set => myBlur = value; }
