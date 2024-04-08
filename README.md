@@ -1,5 +1,5 @@
 ![KnockOutWarningBanner](https://github.com/PTac-h/KnockOutWarningMod/assets/152717609/15d616ce-230a-4c64-855d-c3b357678220)
-# Knock Out Warning V1.0 is out ! 
+# Knock Out Warning V1.1 is out ! 
 
 ## Introduction:
 
@@ -42,4 +42,6 @@ Enjoy the chaos and laughter with KNOCK OUT WARNING and thx for testing!
 
 PTA-C :^)
 
-PS: I'm planning on getting rid of the melon loader compatibility layer for easier installs
+## Changelog:
+- Made the mod a BepInEx Pluggin
+- (beta) Made the mod compatible with Thunderstore.
