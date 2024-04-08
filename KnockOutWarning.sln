@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnockOutWarning", "KnockOutWarning\KnockOutWarning.csproj", "{620C3826-975A-46D9-B4F5-694CF6B7C2F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnockOutWarning", "KnockOutWarning.csproj", "{3570210D-4D0B-414F-8451-ADB14FCC7896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{620C3826-975A-46D9-B4F5-694CF6B7C2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{620C3826-975A-46D9-B4F5-694CF6B7C2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{620C3826-975A-46D9-B4F5-694CF6B7C2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{620C3826-975A-46D9-B4F5-694CF6B7C2F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3570210D-4D0B-414F-8451-ADB14FCC7896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3570210D-4D0B-414F-8451-ADB14FCC7896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3570210D-4D0B-414F-8451-ADB14FCC7896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3570210D-4D0B-414F-8451-ADB14FCC7896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A67E6AF7-7215-4A3C-89CF-6DFDEF594E33}
+		SolutionGuid = {28221517-2C45-4B1E-A6A8-0419EC697606}
 	EndGlobalSection
 EndGlobal
