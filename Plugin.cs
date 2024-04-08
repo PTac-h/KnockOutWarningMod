@@ -1,7 +1,8 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using UnityEngine.Rendering;
 using UnityEngine;
-using Photon.Pun ;
+using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 namespace KnockOutWarning
@@ -12,19 +13,35 @@ namespace KnockOutWarning
         private GameObject myPlayerObject = null;
         private GameObject myVoiceObject = null;
         private GameObject myPostPlayer = null;
+
         private Volume myBlur = null;
         private bool attached;
+
+        private static ConfigEntry<bool> configRagdollBlurVision { get; set; }
+        private static ConfigEntry<bool> configRagdollMuteMic { get; set; }
+        private static ConfigEntry<bool> configRagdollTriggerByWorld { get; set; }
+        private static ConfigEntry<bool> configRagdollTriggerByItems { get; set; }
+
+        private static ConfigEntry<float> configRagdollTriggerForceWorld { get; set; }
+        private static ConfigEntry<float> configRagdollTriggerForceItems { get; set; }
 
         private void Awake()
         {
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+
+            configRagdollBlurVision = Config.Bind("General.Toggles", "RagdollBlurVision", true, "Dictates if the vision is blurry when being in a \"blackout\" state.");
+            configRagdollMuteMic = Config.Bind("General.Toggles", "RagdollMuteMic", true,"Dictates if the mic is switched off when being in a \"blackout\" state.");
+            configRagdollTriggerByWorld = Config.Bind("General.Toggles", "RagdollTriggerByWorld", true,"Dictates if the ragdoll is triggered when being hit by terrain and static objects.");
+            configRagdollTriggerByItems = Config.Bind("General.Toggles","RagdollTriggerByItems",true,"Dictates if the ragdoll is triggered when being hit by items and dynamic objects.");
+            configRagdollTriggerForceWorld = Config.Bind("General","RagdollTriggerForceWorld",250.0f,"The amount of force to trigger the ragdoll when hit by terrain and static objects.");
+            configRagdollTriggerForceItems = Config.Bind("General","RagdollForceTriggerItems",25.0f,"The amount of force to trigger the ragdoll when hit by items and dynamic objetcs.");
+
         }
 
         private void Start()
         {
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} started!");
             SceneManager.sceneLoaded += SetupScene;
-
         }
 
         private void SetupScene(Scene scene, LoadSceneMode mode)
@@ -86,6 +103,13 @@ namespace KnockOutWarning
                 koHandler.MyPostPlayer = myPostPlayer;
                 koHandler.MyPlayerRagdoll = myPlayerObject.GetComponent<PlayerRagdoll>();
 
+                koHandler.RagdollBlurVision = configRagdollBlurVision;
+                koHandler.RagdollMuteMic = configRagdollMuteMic;
+                koHandler.RagdollTriggerByWorld = configRagdollTriggerByWorld;
+                koHandler.RagdollTriggerByItems = configRagdollTriggerByItems;
+                koHandler.RagdollTriggerForceWorld = configRagdollTriggerForceWorld;
+                koHandler.RagdollTriggerForceItems = configRagdollTriggerForceItems;
+
                 attached = true;
             }
 
@@ -129,6 +153,14 @@ namespace KnockOutWarning
 
     public class KnockOutHandler : MonoBehaviour
     {
+        private ConfigEntry<bool> ragdollBlurVision;
+        private ConfigEntry<bool> ragdollMuteMic;
+                     
+        private ConfigEntry<bool> ragdollTriggerByWorld;
+        private ConfigEntry<bool> ragdollTriggerByItems;
+                     
+        private ConfigEntry<float> ragdollTriggerForceWorld;
+        private ConfigEntry<float> ragdollTriggerForceItems;
 
         private Player myPlayer;
         private PlayerRagdoll myPlayerRagdoll;
@@ -141,23 +173,29 @@ namespace KnockOutWarning
         public Volume MyBlur { get => myBlur; set => myBlur = value; }
         public GameObject MyPostPlayer { get => myPostPlayer; set => myPostPlayer = value; }
         public PlayerRagdoll MyPlayerRagdoll { get => myPlayerRagdoll; set => myPlayerRagdoll = value; }
+        public ConfigEntry<bool> RagdollBlurVision { get => ragdollBlurVision; set => ragdollBlurVision = value; }
+        public ConfigEntry<bool> RagdollMuteMic { get => ragdollMuteMic; set => ragdollMuteMic = value; }
+        public ConfigEntry<bool> RagdollTriggerByWorld { get => ragdollTriggerByWorld; set => ragdollTriggerByWorld = value; }
+        public ConfigEntry<bool> RagdollTriggerByItems { get => ragdollTriggerByItems; set => ragdollTriggerByItems = value; }
+        public ConfigEntry<float> RagdollTriggerForceWorld { get => ragdollTriggerForceWorld; set => ragdollTriggerForceWorld = value; }
+        public ConfigEntry<float> RagdollTriggerForceItems { get => ragdollTriggerForceItems; set => ragdollTriggerForceItems = value; }
 
         void OnCollisionEnter(Collision collider)
         {
 
             // If an item hit the head's hitbox
-            if (collider.gameObject.GetComponent<ItemInstance>() != null)
+            if (collider.gameObject.GetComponent<ItemInstance>() != null && ragdollTriggerByItems.Value)
             {
-                if (collider.impulse.magnitude > 25)
+                if (collider.impulse.magnitude > ragdollTriggerForceItems.Value)
                 {
                     Ragdoll(collider.impulse.magnitude);
                 }
             }
 
             // If anything else hit the head's hitbox
-            else
+            else if (ragdollTriggerByWorld.Value)
             {
-                if (collider.impulse.magnitude > 250)
+                if (collider.impulse.magnitude > ragdollTriggerForceWorld.Value)
                 {
                     Ragdoll(collider.impulse.magnitude);
                 }
@@ -170,26 +208,20 @@ namespace KnockOutWarning
 
             float cooldown = (magnitude / 150);
 
-            if (cooldown < 1.0f)
+            if (cooldown < 1.5f)
             {
-                cooldown = 1.0f;
+                cooldown = 1.5f;
             }
 
-            myPostPlayer.SetActive(true);
-            myBlur.weight = cooldown;
-
             myPlayer.refs.ragdoll.StartCoroutine("CallFall", cooldown);
-
             Invoke("RemoveEffects", cooldown);
         }
-
-
 
         public void Update()
         {
             if (myBlur.weight > 0)
             {
-                myBlur.weight -= 0.001f;
+                myBlur.weight -= 0.1f;
             }
             else
             {
@@ -199,9 +231,17 @@ namespace KnockOutWarning
 
         private void AddEffects()
         {
-            Photon.Voice.Unity.Recorder voiceRecorder = myVoiceObject.GetComponent<Photon.Voice.Unity.Recorder>();
-            voiceRecorder.TransmitEnabled = false;
-            myPostPlayer.SetActive(true);
+            if (ragdollMuteMic.Value)
+            {
+                Photon.Voice.Unity.Recorder voiceRecorder = myVoiceObject.GetComponent<Photon.Voice.Unity.Recorder>();
+                voiceRecorder.TransmitEnabled = false;
+            }
+
+            if (ragdollBlurVision.Value)
+            {
+                myBlur.weight = 100;
+                myPostPlayer.SetActive(true);
+            }
         }
 
         private void RemoveEffects()

@@ -1,5 +1,5 @@
 ![KnockOutWarningBanner](https://github.com/PTac-h/KnockOutWarningMod/assets/152717609/15d616ce-230a-4c64-855d-c3b357678220)
-# Knock Out Warning V1.1 is out ! 
+# Knock Out Warning V1.1.3 is out ! 
 
 ## Introduction:
 
@@ -12,6 +12,8 @@ The "KNOCK OUT WARNING" mod introduces a new gameplay mechanic to Content Warnin
 - **Interactive Gameplay:** Enjoy the added challenge and laughter as players interact with each other and the environment, leading to moments of pure chaos and betrayals.
   
 - **Quieter Surroundings:** Tired of yelling figures ? Make them silent with a simple camera swing! Your microphone is turned off during blackouts.
+
+- **Configurable:** You don't like loosing your voice ? Tweak different settings of the knock out mechanic to your liking with BepInEx configuration support.
 
 - **Client-Sided:** This mod is client-sided, allowing anybody to play with it regardless of whether other players in the lobby have it installed.
 
@@ -27,6 +29,7 @@ The "KNOCK OUT WARNING" mod introduces a new gameplay mechanic to Content Warnin
 >- Close your game.
 >- Place 'KnockOutWarning.dll' inside the 'ContentWarning/BepInEx/Plugins' folder.
 >- Enjoy !
+>- (Optional) Edit the mod to your liking by editing the 'ContentWarning/BepInEx/configs/KnockOutWarning.cfg' file.
 
 ## Compatibility:
 
@@ -34,12 +37,14 @@ This mod is compatible with the latest version of Content Warning. Ensure that y
 
 ## Feedback and Support:
 
-If you encounter any issues or have suggestions for improvements, feel free to open an issue on the GitHub repository. Your feedback is valuable in making this mod even better for the community.
+If you encounter any issues or have suggestions for improvements, feel free to open an issue on the [GitHub repository](https://github.com/PTac-h/KnockOutWarningMod). Your feedback is valuable in making this mod even better for the community.
 
 Enjoy the chaos and laughter with KNOCK OUT WARNING and thx for testing!
 
-PTA-C :^)
+PTac-h
+ :^)
 
 ## Changelog:
 - Made the mod a BepInEx Pluggin
-- (beta) Made the mod compatible with the Thunderstore mod manager.
+- Made the mod compatible with the Thunderstore mod manager.
+- Made the mod configurable through BepInEx config manager.

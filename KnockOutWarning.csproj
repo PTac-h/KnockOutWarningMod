@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>KnockOutWarning</AssemblyName>
     <Description>With this mod, players can now knock themselves or their friends out by hitting their heads too hard or by being struck by thrown items.</Description>
-    <Version>1.1.0</Version>
+    <Version>1.1.3</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
