@@ -21,13 +21,11 @@ The "KNOCK OUT WARNING" mod introduces a new gameplay mechanic to Content Warnin
 >## How to Use:
 >### Requirements:
 >- BepInEx : https://github.com/BepInEx/BepInEx
->- BepinExMelonLoader Mono version for x64 architecture: https://github.com/BepInEx/BepInEx.MelonLoader.Loader
 >### Installation:
 >- Install BepInEx. [Instructions on how to install](https://docs.bepinex.dev/articles/user_guide/installation/index.html)
 >- Run the game a first time to allow BepInEx to create some files.
 >- Close your game.
->- Install BepInEx MelonLoader by unpacking the mod to the root of your "Content Warning" folder.
->- Place 'KnockOutWarning.dll' inside the 'ContentWarning/MLLoader/Mods' folder.
+>- Place 'KnockOutWarning.dll' inside the 'ContentWarning/BepInEx/Plugins' folder.
 >- Enjoy !
 
 ## Compatibility:
