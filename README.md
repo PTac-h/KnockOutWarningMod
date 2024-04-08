@@ -42,4 +42,4 @@ PTA-C :^)
 
 ## Changelog:
 - Made the mod a BepInEx Pluggin
-- (beta) Made the mod compatible with Thunderstore.
+- (beta) Made the mod compatible with the Thunderstore mod manager.
