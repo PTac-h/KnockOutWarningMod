@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Configuration;
 using UnityEngine.Rendering;
 using UnityEngine;
@@ -25,17 +25,21 @@ namespace KnockOutWarning
         private static ConfigEntry<float> configRagdollTriggerForceWorld { get; set; }
         private static ConfigEntry<float> configRagdollTriggerForceItems { get; set; }
 
+        private static ConfigEntry<float> configDamageMultiplier { get; set; }
+
+
+
         private void Awake()
         {
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
             configRagdollBlurVision = Config.Bind("General.Toggles", "RagdollBlurVision", true, "Dictates if the vision is blurry when being in a \"blackout\" state.");
-            configRagdollMuteMic = Config.Bind("General.Toggles", "RagdollMuteMic", true,"Dictates if the mic is switched off when being in a \"blackout\" state.");
-            configRagdollTriggerByWorld = Config.Bind("General.Toggles", "RagdollTriggerByWorld", true,"Dictates if the ragdoll is triggered when being hit by terrain and static objects.");
-            configRagdollTriggerByItems = Config.Bind("General.Toggles","RagdollTriggerByItems",true,"Dictates if the ragdoll is triggered when being hit by items and dynamic objects.");
-            configRagdollTriggerForceWorld = Config.Bind("General","RagdollTriggerForceWorld",250.0f,"The amount of force to trigger the ragdoll when hit by terrain and static objects.");
-            configRagdollTriggerForceItems = Config.Bind("General","RagdollForceTriggerItems",25.0f,"The amount of force to trigger the ragdoll when hit by items and dynamic objetcs.");
-
+            configRagdollMuteMic = Config.Bind("General.Toggles", "RagdollMuteMic", true, "Dictates if the mic is switched off when being in a \"blackout\" state.");
+            configRagdollTriggerByWorld = Config.Bind("General.Toggles", "RagdollTriggerByWorld", true, "Dictates if the ragdoll is triggered when being hit by terrain and static objects.");
+            configRagdollTriggerByItems = Config.Bind("General.Toggles", "RagdollTriggerByItems", true, "Dictates if the ragdoll is triggered when being hit by items and dynamic objects.");
+            configRagdollTriggerForceWorld = Config.Bind("General", "RagdollTriggerForceWorld", 250.0f, "The amount of force to trigger the ragdoll when hit by terrain and static objects.");
+            configRagdollTriggerForceItems = Config.Bind("General", "RagdollForceTriggerItems", 25.0f, "The amount of force to trigger the ragdoll when hit by items and dynamic objetcs.");
+            configDamageMultiplier=Config.Bind("General", "DamageMultiplier", 5.0f, "The multiplier to apply to the damage.");
         }
 
         private void Start()
@@ -53,19 +57,19 @@ namespace KnockOutWarning
             {
                 attached = true;
             }
-            else 
-            { 
-                attached = false; 
+            else
+            {
+                attached = false;
             }
         }
 
         public void Update()
         {
-            if(myPlayerObject == null && !attached) 
+            if (myPlayerObject == null && !attached)
             {
                 ScanPlayerInScene();
             }
-            
+
             if (myPlayerObject != null && !attached)
             {
                 AttachKOHandler();
@@ -109,6 +113,8 @@ namespace KnockOutWarning
                 koHandler.RagdollTriggerByItems = configRagdollTriggerByItems;
                 koHandler.RagdollTriggerForceWorld = configRagdollTriggerForceWorld;
                 koHandler.RagdollTriggerForceItems = configRagdollTriggerForceItems;
+
+                koHandler.DamageMultiplier = configDamageMultiplier;
 
                 attached = true;
             }
@@ -155,12 +161,14 @@ namespace KnockOutWarning
     {
         private ConfigEntry<bool> ragdollBlurVision;
         private ConfigEntry<bool> ragdollMuteMic;
-                     
+
         private ConfigEntry<bool> ragdollTriggerByWorld;
         private ConfigEntry<bool> ragdollTriggerByItems;
-                     
+
         private ConfigEntry<float> ragdollTriggerForceWorld;
         private ConfigEntry<float> ragdollTriggerForceItems;
+
+        private ConfigEntry<float> damageMultiplier;
 
         private Player myPlayer;
         private PlayerRagdoll myPlayerRagdoll;
@@ -179,6 +187,7 @@ namespace KnockOutWarning
         public ConfigEntry<bool> RagdollTriggerByItems { get => ragdollTriggerByItems; set => ragdollTriggerByItems = value; }
         public ConfigEntry<float> RagdollTriggerForceWorld { get => ragdollTriggerForceWorld; set => ragdollTriggerForceWorld = value; }
         public ConfigEntry<float> RagdollTriggerForceItems { get => ragdollTriggerForceItems; set => ragdollTriggerForceItems = value; }
+        public ConfigEntry<float> DamageMultiplier { get => damageMultiplier; set => damageMultiplier = value; }
 
         void OnCollisionEnter(Collision collider)
         {
@@ -188,7 +197,7 @@ namespace KnockOutWarning
             {
                 if (collider.impulse.magnitude > ragdollTriggerForceItems.Value)
                 {
-                    Ragdoll(collider.impulse.magnitude);
+                    Ragdoll(collider.impulse.magnitude, true);
                 }
             }
 
@@ -197,13 +206,41 @@ namespace KnockOutWarning
             {
                 if (collider.impulse.magnitude > ragdollTriggerForceWorld.Value)
                 {
-                    Ragdoll(collider.impulse.magnitude);
+                    Ragdoll(collider.impulse.magnitude, false);
                 }
             }
         }
-
-        private void Ragdoll(float magnitude)
+        public void TakeDamageSimulation(float damage)
         {
+            if (myPlayer.ai || myPlayer.data.dead || !myPlayer.refs.view.IsMine)
+            {
+                return;
+            }
+            myPlayer.data.health -= damage;
+            if (myPlayer.refs.view.IsMine)
+            {
+                TakeDamagePost.instance.TakeDamageFeedback();
+                UI_Feedback.instance.TakeDamage(false);
+            }
+            if (myPlayer.data.health <= 0f)
+            {
+                myPlayer.Die();
+            }
+        }
+
+        private void Ragdoll(float magnitude, bool byWhat = false/*false = world   true = items*/)
+        {
+            float damage = magnitude * damageMultiplier.Value;
+            if (byWhat == false)
+            {
+                damage /= ragdollTriggerForceWorld.Value;
+            }
+            else
+            {
+                damage /= ragdollTriggerForceItems.Value;
+            }
+            if (damage > 0)
+                TakeDamageSimulation(damage);
             AddEffects();
 
             float cooldown = (magnitude / 150);
