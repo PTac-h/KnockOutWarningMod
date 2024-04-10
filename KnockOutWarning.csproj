@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>KnockOutWarning</AssemblyName>
     <Description>With this mod, players can now knock themselves or their friends out by hitting their heads too hard or by being struck by thrown items.</Description>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -41,6 +41,9 @@
     </Reference>
     <Reference Include="PhotonVoice">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\PhotonVoice.dll</HintPath>
+    </Reference>
+    <Reference Include="PhotonVoice.API">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\PhotonVoice.API.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
