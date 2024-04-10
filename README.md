@@ -1,5 +1,5 @@
 ![KnockOutWarningBanner](https://github.com/PTac-h/KnockOutWarningMod/assets/152717609/15d616ce-230a-4c64-855d-c3b357678220)
-# Knock Out Warning V1.1.3 is out ! 
+# Knock Out Warning V1.1.4 is out ! 
 
 ## Introduction:
 
@@ -43,6 +43,11 @@ Enjoy the chaos and laughter with KNOCK OUT WARNING and thx for testing!
 
 PTac-h
  :^)
+
+## Special Thanks:
+- Everybody for the 12.000 + downloads !
+- CrownScorpion, Shiroy, Yakam, SirLoie, Yaz, Sasha, Psertded for the bug report, feedback, and features suggestions.
+- Bonk, Nipeno, Lauchgang, Birbos, IAmATeam, Discorvo, AusPro, Cleepington, not_a_team, EvolvedReapers, Bug_content, GameHubExtreme, Xanders_Team, ValiddCompany, SomethingAbstract beacause you included my mod in your modpack 
 
 ## Changelog:
 - Made the mod a BepInEx Pluggin
