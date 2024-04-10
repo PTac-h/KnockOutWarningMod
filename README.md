@@ -47,9 +47,4 @@ PTac-h
 ## Special Thanks:
 - Everybody for the 12.000 + downloads !
 - CrownScorpion, Shiroy, Yakam, SirLoie, Yaz, Sasha, Psertded for the bug report, feedback, and features suggestions.
-- Bonk, Nipeno, Lauchgang, Birbos, IAmATeam, Discorvo, AusPro, Cleepington, not_a_team, EvolvedReapers, Bug_content, GameHubExtreme, Xanders_Team, ValiddCompany, SomethingAbstract beacause you included my mod in your modpack 
-
-## Changelog:
-- Made the mod a BepInEx Pluggin
-- Made the mod compatible with the Thunderstore mod manager.
-- Made the mod configurable through BepInEx config manager.
+- Bonk, Nipeno, Lauchgang, Birbos, IAmATeam, Discorvo, AusPro, Cleepington, not_a_team, EvolvedReapers, Bug_content, GameHubExtreme, Xanders_Team, ValiddCompany, SomethingAbstract for including my mod in your modpack 
