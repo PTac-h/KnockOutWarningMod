@@ -17,7 +17,6 @@ namespace KnockOutWarning
         GameObject myPostPlayerObject;
         GameObject myPostSleepObject;
         private bool attached;
-
         
         private static ConfigEntry<bool> configRagdollMuteMic { get; set; }
         private static ConfigEntry<bool> configRagdollTriggerByWorld { get; set; }
@@ -310,7 +309,7 @@ namespace KnockOutWarning
                 }
                 else if(RagdollItemBehaviour.Value == 1)
                 {
-                    myPlayer.data.dropItemsFor = 0;
+                    myPlayer.data.dropItemsFor = 0.1f;
                 }
                 myPlayer.data.fallTime = 0f;
             }
